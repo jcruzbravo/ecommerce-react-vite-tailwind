@@ -1,7 +1,9 @@
-
-function MyOrders() {
+import Layout from "../../Components/Layout";
+const MyOrders = () => {
   return (
-    <div>MyOrders</div>
+    <Layout>
+      <h1>My Orders</h1>
+    </Layout>
   )
 }
 
