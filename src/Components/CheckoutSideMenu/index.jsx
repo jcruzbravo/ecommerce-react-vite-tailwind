@@ -1,9 +1,17 @@
 import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
+import OrderCart from "../../Components/OrderCart";
 import "./styles.css";
 
 const CheckoutSideMenu = () => {
   const context = useContext(ShoppingCartContext);
+
+  const handleDelete = (id) => {
+    const filteredProducts = context.cartProducts.filter(product => product.id !== id);
+
+    context.setCartProducts(filteredProducts);
+    
+  }
 
   return (
     <aside
@@ -26,6 +34,22 @@ const CheckoutSideMenu = () => {
             <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
           </svg>
         </div>
+      </div>
+      <div className="px-6 overflow-y-scroll">
+        {context.cartProducts.length > 0 ? (
+          context.cartProducts.map((product) => (
+            <OrderCart
+              key={product.id}
+              id={product.id}
+              title={product.title}
+              imageUrl={product.images}
+              price={product.price}
+              handleDelete={handleDelete}
+            />
+          ))
+        ) : (
+          <p className="text-center">Your cart is empty</p>
+        )}
       </div>
     </aside>
   );
