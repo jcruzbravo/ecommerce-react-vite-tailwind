@@ -17,8 +17,15 @@ const CheckoutSideMenu = () => {
   };
 
   const handleCheckout = () => {
+    
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const formattedDate = ("0" + day).slice(-2) + "." + ("0" + month).slice(-2) + "." + year;
+    
     const orderToAdd = {
-      date: new Date(),
+      date: formattedDate,
       products: context.cartProducts,
       total: context.cartProducts.length,
       totalPrice: totalPrice(context.cartProducts),
@@ -26,6 +33,7 @@ const CheckoutSideMenu = () => {
 
     context.setOrder([...context.order, orderToAdd]);
     context.setCartProducts([]);
+    context.setCount(0);
   };
 
   return (
