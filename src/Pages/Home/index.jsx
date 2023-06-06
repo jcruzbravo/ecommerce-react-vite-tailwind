@@ -7,14 +7,12 @@ import ProductDetail from "../../Components/ProductDetail";
 const Home = () => {
   const context = useContext(ShoppingCartContext);
   const renderView = () => {
-    if (context.searchByTitle?.length > 0) {
-      if (context.filteredItems?.length > 0) {
-        return context.filteredItems?.map((item) => <Card key={item.id} data={item} />);
-      } else {
-        return <h2>Products not found ☹️</h2>
-      }
+    if (context.filteredItems?.length > 0) {
+      return context.filteredItems?.map((item) => (
+        <Card key={item.id} data={item} />
+      ));
     } else {
-      return context.items?.map((item) => <Card key={item.id} data={item} />);
+      return <h2>Products not found ☹️</h2>;
     }
   };
 
@@ -29,7 +27,7 @@ const Home = () => {
           onChange={(e) => context.setSearchByTitle(e.target.value)}
         />
       </div>
-      <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
+      <div className="flex flex-col items-center justify-center lg:grid gap-4 grid-cols-4 w-full max-w-screen-lg">
         {renderView()}
       </div>
       <ProductDetail />
