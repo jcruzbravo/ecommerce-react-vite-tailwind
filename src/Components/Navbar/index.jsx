@@ -1,10 +1,16 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ShoppingCartContext } from "../../Context";
+import MobileMenu from "../MobileMenu";
 
 const Navbar = () => {
   const context = useContext(ShoppingCartContext);
   const activeStyle = "underline underline-offset-4";
+
+  const [showMenu, setShowMenu] = useState(false);
+  const handleMenuClick = () => {
+    setShowMenu(!showMenu);
+  };
 
   return (
     <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light">
@@ -24,7 +30,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/clothes"
-            onClick={() => context.setSearchByCategory('clothes')}
+            onClick={() => context.setSearchByCategory("clothes")}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Clothes
@@ -33,7 +39,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/electronics"
-            onClick={() => context.setSearchByCategory('electronics')}
+            onClick={() => context.setSearchByCategory("electronics")}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Electronics
@@ -42,7 +48,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/furnitures"
-            onClick={() => context.setSearchByCategory('furnitures')}
+            onClick={() => context.setSearchByCategory("furnitures")}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Furnitures
@@ -51,14 +57,31 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/others"
-            onClick={() => context.setSearchByCategory('others')}
+            onClick={() => context.setSearchByCategory("others")}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Others
           </NavLink>
         </li>
       </ul>
-      <ul className="flex items-center gap-3">
+      <div className="lg:hidden cursor-pointer" onClick={() => handleMenuClick()}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+          />
+        </svg>
+      </div>
+      {showMenu && <MobileMenu />}
+      <ul className="hidden lg:flex items-center gap-3">
         <li className="text-black/60">jcruzbravo@live.com</li>
         <li>
           <NavLink
