@@ -15,9 +15,12 @@ export const ShoppingCartProvider = ({ children }) => {
   const [searchByCategory, setSearchByCategory] = useState(null);
 
   useEffect(() => {
-    fetch("https://api.escuelajs.co/api/v1/products")
-      .then((res) => res.json())
-      .then((data) => setItems(data));
+    const getData = async () => {
+      await fetch("https://api.escuelajs.co/api/v1/products")
+        .then((res) => res.json())
+        .then((data) => setItems(data));
+    };
+    getData();
   }, []);
 
   const filterItemsByTitle = (items, searchByTitle) => {
@@ -50,7 +53,6 @@ export const ShoppingCartProvider = ({ children }) => {
     if (!searchType) {
       return items;
     }
-
   };
 
   useEffect(() => {
