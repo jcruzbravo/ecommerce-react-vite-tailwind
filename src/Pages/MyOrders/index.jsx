@@ -6,12 +6,11 @@ import OrdersCard from "../../Components/OrdersCard";
 
 const MyOrders = () => {
   const context = useContext(ShoppingCartContext);
-  
 
   return (
     <Layout>
       <h1 className="font-medium text-xl">My Orders</h1>
-      {
+      {context.order.length > 0 ? (
         context.order.map((order, index) => (
           <Link key={index} to={`/my-orders/${index}`}>
             <OrdersCard
@@ -21,7 +20,9 @@ const MyOrders = () => {
             />
           </Link>
         ))
-      }
+      ) : (
+        <h2 className="font-medium text-xl mt-5">Dont have any order ☹️</h2>
+      )}
     </Layout>
   );
 };
